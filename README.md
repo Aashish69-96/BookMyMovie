@@ -23,3 +23,5 @@ $ git clone https://github.com/Aashish69-96/BookMyMovie.git
 $ git cd    BookMyMovie
 $ docker build -t Book-movie .
 $ docker run -it Book-movie
+
+Q. Question can be why to use docker. It's cause we have different operating system and runtime enviroment can differ accordingly it's better to contairize it and also in otherhand we will be learning Docker.
