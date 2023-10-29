@@ -12,7 +12,7 @@
 
 ## Getting Started
 
-Q. Question can be why to use docker. It's cause we have different operating system and runtime enviroment can differ accordingly it's better to contairize it and also in otherhand we will be learning Docker.
+Q. Question can be why to use docker. It's cause we have different operating system and runtime enviroment differ accordingly it's better to containerize it and also in otherhand we will be learning Docker.
 
 To run **BookMyMovies** on Docker container, follow these steps:
 
