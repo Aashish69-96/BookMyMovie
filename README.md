@@ -1,4 +1,4 @@
-# BookMyMovies
+# BookMyMovie
 
 ## Contributors
 - Aashish Adhikari (04)
@@ -8,7 +8,7 @@
 
 ## Description
 
-**BookMyMovies** is a project to book movies seat in your nearby hall
+**BookMyMovie** is a project to book movies seat in your nearby hall
 
 ## Getting Started
 
