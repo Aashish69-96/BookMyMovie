@@ -1,73 +1,11 @@
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import TransitionBox from "../utility/TransitionBox";
+
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const responseData = await response.json();
-      if (response.ok) {
-        console.log(responseData.data.accessToken);
-        toast.success(responseData.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        localStorage.setItem("user-token", JSON.stringify(responseData.data));
-        redirect("/");
-      } else {
-        toast.error(responseData.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-    } catch (err) {
-      toast.error(responseData.msg, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    }
-  };
 
   return (
     <section>
-      <ToastContainer></ToastContainer>
       <div className="flex flex-col items-center px-6 py-8 lg:my-10 my-5 mx-auto lg:py-0 ">
         <a
           href="#"
@@ -78,7 +16,7 @@ const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
               Welcome Back, Sign in ✨
             </h1>
-            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-4 md:space-y-6" >
               <div>
                 <label
                   for="email"
@@ -92,7 +30,6 @@ const Login = () => {
                   id="email"
                   className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
-                  onChange={handleChange}
                   required={true}
                 ></input>
               </div>
@@ -110,7 +47,6 @@ const Login = () => {
                   placeholder="••••••••"
                   className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
                   required={true}
-                  onChange={handleChange}
                 ></input>
               </div>
               <div className="flex items-center justify-between">
@@ -147,12 +83,11 @@ const Login = () => {
               </button>
               <p className="text-sm font-light text-gray-400">
                 Don’t have an account yet?{" "}
-                <Link
-                  to={"../register"}
+                <a
                   className="font-medium  hover:underline text-primary-500"
                 >
                   Sign up
-                </Link>
+                </a>
               </p>
             </form>
           </div>
@@ -162,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default TransitionBox(Login);
+export default Login;
