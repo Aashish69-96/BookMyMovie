@@ -8,7 +8,6 @@ import Slide from "./Slide";
 
 const MovieSlider = () => {
   const handleSlideChange = (swiper) => {
-    console.log(swiper);
   };
 
   return (

@@ -2,11 +2,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import Login from "./Page/Login";
 import Index from "./Page/Index";
+import { MovieContextProvider } from "./context/MovieListContext";
 
 const router = createBrowserRouter([
     {
         path:"/",
-        element: <App/>,
+        element: <MovieContextProvider><App/></MovieContextProvider> ,
         children:[
             {
                 path:"/",

@@ -17,10 +17,10 @@ const MovieList = [
       language: "English",
       hall: "QFX cinema Butwal",
     },
-    {
+    { 
       id: 3,
       name: "Inception 2: Beyond Dreams",
-      image: "https://www.joblo.com/assets/images/oldsite/posters/images/full/2010-inception-poster2.jpg",
+      image: "https://assetsio.reedpopcdn.com/MarvelsHeader_rUbTNsM.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp",
       category: "Sci-Fi/Action",
       time: "2h 45m",
       language: "English",
