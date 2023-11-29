@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../includes/http_server.h"
-
+#include "./routes/routers.movie.h"
 HTTPServer::HTTPServer()
 {
     server.Get("/", [](const httplib::Request &req, httplib::Response &res)
@@ -9,7 +9,8 @@ HTTPServer::HTTPServer()
 
 void HTTPServer::runServer()
 {
-    server.listen("localhost",1973);
+    server.Get("/movies", handleRequest);
+    server.listen("localhost", 1973);
     // std::thread serverThread([this]()
     //                          { server.listen("localhost", 1973); });
     // // serverThread.detach();
