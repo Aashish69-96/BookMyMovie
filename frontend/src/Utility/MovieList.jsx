@@ -89,6 +89,54 @@ const MovieList = [
       language: "English",
       hall: "AMC Theatres",
     },
+    {
+      id: 10,
+      name: "2 STATES",
+      image : "razi.jpg",
+      category : "Comedy/Romance/Drama",
+      time :"2h 29m",
+      language : "Hindi",
+      hall :"Narayani Cinemas",
+
+    },
+    {
+      id:11,
+      name: "Joker",
+      image : "s.jpg",
+      category : "Thriller/Crime ",
+      time :"2h 2m",
+      language : "English",
+      hall :"QFX RadheRadhe"
+    },
+    {   
+    id : 12,
+    name:"inception",
+    image :"l.jpg",
+    category : " Sci-fi/Action",
+    time :"2h 28m",
+    language : "English",
+    hall :"QFX Butwal",
+    },
+    {
+      id : 13,
+      name :"RRR",
+      image :"x.jpg",
+      category : "Action/Thriller",
+      time :"3h 7m",
+      language : "Hindi",
+      hall :"QFX Butwal",
+    },
+    {
+      id :14,
+      name:"Razi",
+      image:"razii.jpg",
+      category :"Thriller",
+      time :"2h 20m",
+      language :"Hindi",
+      hall :"QFX Butwal",
+
+    },
   ];
+
 
 export default MovieList;
