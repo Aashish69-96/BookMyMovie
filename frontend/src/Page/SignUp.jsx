@@ -9,7 +9,7 @@ const Login = () => {
         <div className="w-full rounded-lg  md:mt-0 sm:max-w-md xl:p-0 sec-card">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
-              Welcome Back, Sign in ✨
+              Welcome Back, Sign UP ✨
             </h1>
             <form className="space-y-4 md:space-y-6">
               <div>
@@ -77,12 +77,10 @@ const Login = () => {
                 Sign in
               </button>
               <p className="text-sm font-light text-gray-400">
-                Don’t have an account yet?{" "}
-                <a
-                  className="font-medium  hover:underline text-primary-500"
-                  href="/SignUp"
-                >
-                  Sign Up
+        
+                <a className="font-medium  hover:underline text-primary-500">
+                
+                  Sign up
                 </a>
               </p>
             </form>
