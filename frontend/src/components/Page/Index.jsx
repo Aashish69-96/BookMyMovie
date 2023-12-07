@@ -1,7 +1,7 @@
-import RunningNowSection from "../components/MovieList/RunningNowSection";
-import MovieSlider from "../components/movieSlider/MovieSlider";
+import RunningNowSection from "../../components/MovieList/RunningNowSection";
+import MovieSlider from "../../components/movieSlider/MovieSlider";
 import React, { useContext } from "react";
-import { MovieContext } from "../context/MovieListContext";
+import { MovieContext } from "../../context/MovieListContext";
 
 const Index = () => {
   const { movieList } = useContext(MovieContext);
