@@ -14,6 +14,22 @@ const Login = () => {
             <form className="space-y-4 md:space-y-6">
               <div>
                 <label
+                  for="UserName"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Your UserName
+                </label>
+                <input
+                  type="text"
+                  name="UserName"
+                  id="UserName"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Aashish_123"
+                  required={true}
+                ></input>
+              </div>
+              <div>
+                <label
                   for="email"
                   className="block mb-2 text-sm font-medium text-white"
                 >
@@ -44,43 +60,17 @@ const Login = () => {
                   required={true}
                 ></input>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    ></input>
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      for="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium  hover:underline text-gray-300"
-                >
-                  Forgot password?
-                </a>
-              </div>
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Sign in
+                Sign Up
               </button>
               <p className="text-sm font-light text-gray-400">
         
-                <a className="font-medium  hover:underline text-primary-500">
+                <a className="font-medium  hover:underline text-primary-500" href="/login">
                 
-                  Sign up
+                  Login
                 </a>
               </p>
             </form>
