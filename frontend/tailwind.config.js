@@ -13,6 +13,7 @@ export default {
         "theme-dark": "#07030F",
         "theme-light-dark": "#100C1A",
         "theme-light-dark-2": "#1C1825",
+        "theme-light-dark-3": "#423d4d"
       },
     },
   },

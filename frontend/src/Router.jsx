@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
-import Login from "./components/Page/Login";
-import Index from "./components/Page/Index";
+import Login from "./Page/Login";
+import Index from "./Page/Index";
 import { MovieContextProvider } from "./context/MovieListContext";
-import SignUp from "./components/Page/SignUp";
-import Error from "./components/Page/Error";
+import SignUp from "./Page/SignUp";
+import MovieIndex from "./Page/MovieIndex";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path:"*",
-        element:<Error />,
+        path:"/Movie/:id",
+        element: <MovieIndex/>
       }
     ],
   },
