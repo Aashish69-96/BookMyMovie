@@ -5,6 +5,7 @@ import Index from "./Page/Index";
 import { MovieContextProvider } from "./context/MovieListContext";
 import SignUp from "./Page/SignUp";
 import MovieIndex from "./Page/MovieIndex";
+import { SeatContextProvider } from "./context/SeatContext";
 
 const router = createBrowserRouter([
   {
@@ -28,9 +29,13 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path:"/Movie/:id",
-        element: <MovieIndex/>
-      }
+        path: "/Movie/:id",
+        element: (
+          <SeatContextProvider>
+            <MovieIndex />
+          </SeatContextProvider>
+        ),
+      },
     ],
   },
 ]);

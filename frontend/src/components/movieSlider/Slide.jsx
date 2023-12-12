@@ -47,7 +47,7 @@ const Slide = ({ details }) => {
             <p className="SlideDesPrimary">
               <MdHighQuality></MdHighQuality>{" "}
               <span className=" text-theme-light-white">
-                {details.hall.name}
+                {details.hall.name}, {details.hall.location}
               </span>
             </p>
           </div>

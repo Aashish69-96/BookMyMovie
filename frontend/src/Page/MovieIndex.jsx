@@ -1,9 +1,40 @@
+import { useParams } from "react-router-dom";
 import SeatMatrix from "../components/Seat/SeatMatrix";
 import Slide from "../components/movieSlider/Slide";
+import { useEffect, useState } from "react";
+import { useSeatContext } from "../context/SeatContext";
 const MovieIndex = () => {
+  const [movieDetail, setMovieDetail] = useState(null);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+  const { selectedSeats } = useSeatContext();
+
+  useEffect(() => {
+    const fetchMovieDetail = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/moviebooking/getmovie/${id}`
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching movie details");
+        }
+        const data = await response.json();
+        console.log(data);
+        setMovieDetail(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+    fetchMovieDetail();
+  }, [id]);
+
+  if (!movieDetail) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container">
-      <Slide></Slide>
+      <Slide details={movieDetail}></Slide>
       <div className="p-2 flex flex-col md:flex-row mt-5">
         <div className="md:w-1/4 w-full p-4 ">
           <h2 className="text-lg font-semibold mb-4 text-theme-light-white">
@@ -43,31 +74,34 @@ const MovieIndex = () => {
 
           <div className="text-theme-light-white my-5 bg-theme-light-dark-2 px-4 py-2 rounded-md">
             <p className="mb-4 text-lg font-bold">Your Selected Seats</p>
-            <p className="text-sm text-theme-light-dark-3 font-bold">3 seats</p>
-            <div className="flex flex-row text-sm gap-2">
-              <p className="px-4 py-1 bg-blue-600 rounded-md cursor-pointer">
-                A1
-              </p>
-              <p className="px-4 py-1 bg-blue-600 rounded-md cursor-pointer">
-                B5
-              </p>
-              <p className="px-4 py-1 bg-blue-600 rounded-md cursor-pointer">
-                B7
-              </p>
+            <p className="text-sm text-theme-light-dark-3 font-bold">
+              {selectedSeats.length} seats
+            </p>
+            <div className="flex flex-row flex-wrap text-sm gap-2">
+              {selectedSeats.map((item) => {
+                return (
+                  <p
+                    className="px-4 py-1 bg-blue-600 rounded-md cursor-pointer"
+                    key={item}
+                  >
+                    {item}
+                  </p>
+                );
+              })}
             </div>
             <div className="flex flex-col w-full overflow-hidden mt-5  text-theme-light-white">
               {/* Table Rows */}
               <div className="flex flex-row border-b border-theme-light-dark-3 p-2">
                 <div className="flex-1">Normal</div>
-                <div className="flex-1">3</div>
-                <div className="flex-1">Rs. 200</div>
+                <div className="flex-1">{selectedSeats.length}</div>
+                <div className="flex-1">Rs. {selectedSeats.length * 100}</div>
               </div>
 
               {/* Total Row */}
               <div className="flex flex-row p-2 font-bold">
                 <div className="flex-1">Total</div>
                 <div className="flex-1"></div>
-                <div className="flex-1">Rs. 1200</div>
+                <div className="flex-1">Rs. {selectedSeats.length * 100}</div>
               </div>
             </div>
           </div>
