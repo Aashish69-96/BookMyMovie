@@ -1,28 +1,25 @@
-#include "../includes/http_server.h"
-#include <fstream>
+#include <iostream>
 #include <string>
-int main()
-{
-    HTTPServer server;
+#include "../includes/httplib.h"
 
-//     // reads the contenet of the service account and covnerts into string
-//     std::ifstream serviceAccountFile("../database/bmmfbsdk.json");
-//     // first arg represents the begining of the character sequence to be read from the file
-//     // second arg represents the end of stream iterator indicating end of character sequence from the file
-//     std::string serviceAccountJson((std::istreambuf_iterator<char>(serviceAccountFile)),
-//                                    std::istreambuf_iterator<char>());
-//  std::string databaseURL = "https://bookmymovie-756b8-default-rtdb.firebaseio.com/bdfdsa";
-//     httplib::Client client(databaseURL.c_str());
-//     httplib::Headers headers = {};
+void handle_get(const httplib::Request& /*req*/, httplib::Response& res) {
+    res.set_content("Hello, World! (GET)", "text/plain");
+}
 
-//     auto response = client.Get("/", headers);
-//     if (response && response->status == 200) {
-//         std::cout << response->body << std::endl;
-//     } else {
-//         std::cout << "Error: " << (response ? response->status : -1) << std::endl;
-//     }
+void handle_post(const httplib::Request& req, httplib::Response& res) {
+    std::string username = req.get_param_value("username");
+    res.set_content(username, "text/plain");
+}
 
-    //Need to run the server concurrently
-    server.runServer();
+int main() {
+    httplib::Server svr;
+
+    svr.Get("/", handle_get);
+
+    svr.Post("/echo", handle_post);
+
+    svr.listen("localhost", 8080);
+
     return 0;
 }
+
