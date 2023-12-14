@@ -1,4 +1,17 @@
+import { useState } from "react";
+import axios from 'axios';
+
 const Login = () => {
+  const [email,setemail]=useState();
+  const [password,setpassword]=useState();
+
+
+  const handleSubmit=(e)=>{
+      e.preventDefault()
+      axios.post('http://localhost:8080/echo',{email,password})
+      .then(result=> console.log(result))
+      .catch(err=> console.log((err)))
+  }
   return (
     <section>
       <div className="flex flex-col items-center px-6 py-8 lg:my-10 my-5 mx-auto lg:py-0 ">
@@ -11,7 +24,7 @@ const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
               Welcome Back, Sign in ✨
             </h1>
-            <form className="space-y-4 md:space-y-6">
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   for="email"
@@ -23,10 +36,10 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-black focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
                   required={true}
-                ></input>
+               onChange={(e)=>{setemail(e.target.value)}} ></input>
               </div>
               <div>
                 <label
@@ -40,9 +53,9 @@ const Login = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-black focus:ring-blue-500 focus:border-blue-500"
                   required={true}
-                ></input>
+                onChange={(e)=>{setpassword(e.target.value)}}  ></input>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
