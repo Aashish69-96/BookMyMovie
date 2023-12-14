@@ -7,8 +7,20 @@ void handle_get(const httplib::Request& /*req*/, httplib::Response& res) {
 }
 
 void handle_post(const httplib::Request& req, httplib::Response& res) {
-    std::string username = req.get_param_value("username");
-    res.set_content(username, "text/plain");
+    auto json_data = req.body;
+
+    res.set_header("Access-Control-Allow-Origin", "*");
+    res.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+    res.set_header("Access-Control-Allow-Headers", "Content-Type");
+
+    // You can parse the JSON data if needed
+    // For simplicity, let's print the received JSON data
+    std::cout << "Received JSON data: " << json_data << std::endl;
+
+    // You can further process the JSON data as needed
+
+    // Send a response back to the client
+    res.set_content("Received JSON data", "text/plain");
 }
 
 int main() {
@@ -18,8 +30,14 @@ int main() {
 
     svr.Post("/echo", handle_post);
 
-    svr.listen("localhost", 8080);
+    // Handle preflight requests (OPTIONS)
+svr.Options("/echo", [](const auto& /*req*/, auto& res) {
+        res.set_header("Access-Control-Allow-Origin", "*");
+        res.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+        res.set_header("Access-Control-Allow-Headers", "Content-Type");
+        res.status = 200;
+    });
 
+    svr.listen("localhost", 8080);
     return 0;
 }
-
