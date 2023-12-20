@@ -3,11 +3,16 @@ import SeatMatrix from "../components/Seat/SeatMatrix";
 import Slide from "../components/movieSlider/Slide";
 import { useEffect, useState } from "react";
 import { useSeatContext } from "../context/SeatContext";
+import { useBookedSeatContext } from "../context/BookedSeatContext";
+import TokenParser from "../Utility/TokenParse";
 const MovieIndex = () => {
   const [movieDetail, setMovieDetail] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const { selectedSeats } = useSeatContext();
+  const { setSelectedSeats, selectedSeats } = useSeatContext();
+  const { bookedSeats, setBookedSeats } = useBookedSeatContext();
+
+  const { getToken } = TokenParser();
 
   useEffect(() => {
     const fetchMovieDetail = async () => {
@@ -19,7 +24,11 @@ const MovieIndex = () => {
           throw new Error("Error fetching movie details");
         }
         const data = await response.json();
-        console.log(data);
+
+        // console.log(data);
+        const arrayOfSeats = data.seats.map((obj) => obj.seat);
+        setBookedSeats(arrayOfSeats);
+        // setSelectedSeats(arrayOfSeats);
         setMovieDetail(data);
       } catch (error) {
         setError(error.message);
@@ -27,6 +36,36 @@ const MovieIndex = () => {
     };
     fetchMovieDetail();
   }, [id]);
+
+  const handlePurchaseTicket = async () => {
+    try {
+      if (selectedSeats.length === 0) {
+        console.log(
+          "No seats selected. Please choose seats before purchasing."
+        );
+        return;
+      }
+      const response = await fetch(
+        `http://localhost:3000/api/moviebooking/purchase/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ selectedSeats }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error purchasing tickets");
+      }
+
+      const responseData = await response.json();
+      console.log("Purchase successful:", responseData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (!movieDetail) {
     return <div>Loading...</div>;
@@ -106,7 +145,10 @@ const MovieIndex = () => {
             </div>
           </div>
 
-          <button className="bg-blue-600 text-white p-2 rounded w-full">
+          <button
+            className="bg-blue-600 text-white p-2 rounded w-full"
+            onClick={handlePurchaseTicket}
+          >
             Purchase Ticket
           </button>
         </div>

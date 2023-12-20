@@ -3,16 +3,17 @@
 #include <string>
 #include <iostream>
 
-class Database {
+class Database
+{
 public:
     Database();
     ~Database();
 
-    bool openDb(const std::string& db);
-    bool createQuery(const std::string& query);
+    bool openDb(const std::string &db);
+    bool createQuery(const std::string &query);
     void stopDb();
 
 private:
-    sqlite3* DB;
+    sqlite3 *DB;
     int exit;
 };

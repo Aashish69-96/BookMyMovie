@@ -21,6 +21,7 @@ const customerSchema = new Schema({
   },
   premium: {
     type: Boolean,
+    default : false,
     required: true,
   },
 });

@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
-
-const SALT_ROUND = 10;
+const SALT_ROUND = 69;
 module.exports = {
   hashPassword: async (password) => {
     return await bcrypt.hash(password, SALT_ROUND);

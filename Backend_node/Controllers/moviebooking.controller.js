@@ -103,15 +103,9 @@ const addMovie = async (req, res) => {
 const bookMovie = async (req, res) => {
   try {
     const { movieBookingId, userId, bookedSeats } = req.body;
-
-    // Validate input fields
+    //validation
     if (!movieBookingId || !userId || !bookedSeats || !bookedSeats.length) {
       return res.status(400).json({ error: "Invalid request parameters" });
-    }
-
-    const existingMovieBooking = await MovieBooking.findById(movieBookingId);
-    if (!existingMovieBooking) {
-      return res.status(404).json({ error: "Movie booking not found" });
     }
 
     //if user exists or not
@@ -127,13 +121,61 @@ const bookMovie = async (req, res) => {
         seat.bookedBy = existingUser._id;
       }
     });
-
     const updatedMovieBooking = await existingMovieBooking.save();
-
     res.status(200).json(updatedMovieBooking);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const purchaseMovie = async (req, res) => {
+  try {
+    console.log("hello");
+    const userId = req.user.id;
+    const movieBookingId = req.params.id;
+    const { selectedSeats } = req.body;
+    console.log(req.body, movieBookingId, userId);
+
+    if (!Array.isArray(selectedSeats) || selectedSeats.length === 0) {
+      return res.status(400).json({ msg: "Invalid selectedSeats" });
+    }
+
+    const seatsAvailable = await validateSeatsAvailability(
+      movieBookingId,
+      selectedSeats
+    );
+    if (!seatsAvailable) {
+      return res
+        .status(400)
+        .json({ message: "Selected seats are not available" });
+    }
+    const movieBooking = await MovieBooking.findById(movieBookingId);
+    movieBooking.seats = [
+      ...movieBooking.seats,
+      ...selectedSeats.map((seat) => ({ seat, bookedBy: userId })),
+    ];
+    await movieBooking.save();
+    //success response
+    res.status(200).json({ message: "Purchase successful" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+const validateSeatsAvailability = async (movieBookingId, selectedSeats) => {
+  try {
+    const existingBookings = await MovieBooking.find({
+      movie: movieBookingId,
+      "seats.seat": { $in: selectedSeats },
+    });
+    if (existingBookings.length > 0) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -143,4 +185,5 @@ module.exports = {
   addMovie,
   bookMovie,
   getSingleMovie,
+  purchaseMovie,
 };

@@ -9,9 +9,25 @@ const Login = () => {
         <div className="w-full rounded-lg  md:mt-0 sm:max-w-md xl:p-0 sec-card">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
-              Welcome Back, Sign UP ✨
+              Don't have an account? Sign Up✨
             </h1>
             <form className="space-y-4 md:space-y-6">
+              <div>
+                <label
+                  for="email"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Display Name
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-100  focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="name@company.com"
+                  required={true}
+                ></input>
+              </div>
               <div>
                 <label
                   for="email"
@@ -23,7 +39,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-theme-dark  focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
                   required={true}
                 ></input>
@@ -40,7 +56,7 @@ const Login = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-white focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-theme-dark  focus:ring-blue-500 focus:border-blue-500"
                   required={true}
                 ></input>
               </div>
@@ -76,11 +92,11 @@ const Login = () => {
               >
                 Sign in
               </button>
-              <p className="text-sm font-light text-gray-400">
-        
-                <a className="font-medium  hover:underline text-primary-500">
-                
-                  Sign up
+              <p className="text-sm font-light text-gray-400 ">
+                {" "}
+                Already have an account?
+                <a className="font-medium px-2 hover:underline text-primary-500">
+                  Sign in
                 </a>
               </p>
             </form>

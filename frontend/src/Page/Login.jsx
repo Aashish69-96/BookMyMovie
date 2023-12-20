@@ -1,19 +1,55 @@
 import { useState } from "react";
-import axios from 'axios';
+import successToast from "../components/Toast/successToast";
+import errorToast from "../components/Toast/successToast";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
-  const [email,setemail]=useState();
-  const [password,setpassword]=useState();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
+  const handleSubmit = async (e) => {
+    // console.log(formData);
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/customers/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+      if (response.ok) {
+        successToast(responseData.msg);
+        localStorage.setItem("user-token", JSON.stringify(responseData.data));
+        navigate("/");
+      } else {
+        errorToast(response.msg);
+      }
+    } catch (err) {
+      console.log(err);
+      errorToast(err.message);
+    }
+  };
 
-  const handleSubmit=(e)=>{
-      e.preventDefault()
-      axios.post('http://localhost:8080/echo',{email,password})
-      .then(result=> console.log(result))
-      .catch(err=> console.log((err)))
-  }
   return (
     <section>
+      <ToastContainer />
       <div className="flex flex-col items-center px-6 py-8 lg:my-10 my-5 mx-auto lg:py-0 ">
         <a
           href="#"
@@ -39,7 +75,8 @@ const Login = () => {
                   className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-black focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
                   required={true}
-               onChange={(e)=>{setemail(e.target.value)}} ></input>
+                  onChange={handleChange}
+                ></input>
               </div>
               <div>
                 <label
@@ -55,7 +92,8 @@ const Login = () => {
                   placeholder="••••••••"
                   className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-black focus:ring-blue-500 focus:border-blue-500"
                   required={true}
-                onChange={(e)=>{setpassword(e.target.value)}}  ></input>
+                  onChange={handleChange}
+                ></input>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">

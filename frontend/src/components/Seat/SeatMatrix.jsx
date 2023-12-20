@@ -39,9 +39,9 @@ const SeatMatrix = () => {
       <div className="flex flex-col gap-y-5 flex-wrap items-center my-8">
         {renderRows()}
       </div>
-      {/* <div className="text-white">
+      <div className="text-white">
         Selected Seats: {selectedSeats.join(", ")}
-      </div> */}
+      </div>
     </div>
   );
 };
