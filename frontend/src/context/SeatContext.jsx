@@ -27,6 +27,7 @@ export const SeatContextProvider = ({ children }) => {
 
   const contextValue = {
     selectedSeats,
+    setSelectedSeats,
     handleSeatClick,
   };
 

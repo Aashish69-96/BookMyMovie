@@ -4,7 +4,11 @@ import Slide from "../components/movieSlider/Slide";
 import { useEffect, useState } from "react";
 import { useSeatContext } from "../context/SeatContext";
 import { useBookedSeatContext } from "../context/BookedSeatContext";
+import errorToast from "../components/Toast/errorToast";
+import successToast from "../components/Toast/successToast";
 import TokenParser from "../Utility/TokenParse";
+import { ToastContainer } from "react-toastify";
+
 const MovieIndex = () => {
   const [movieDetail, setMovieDetail] = useState(null);
   const [error, setError] = useState(null);
@@ -13,6 +17,20 @@ const MovieIndex = () => {
   const { bookedSeats, setBookedSeats } = useBookedSeatContext();
 
   const { getToken } = TokenParser();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && selectedSeats.length > 0) {
+        const newSeats = [...selectedSeats];
+        newSeats.pop();
+        setSelectedSeats(newSeats);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedSeats, setSelectedSeats]);
 
   useEffect(() => {
     const fetchMovieDetail = async () => {
@@ -35,14 +53,12 @@ const MovieIndex = () => {
       }
     };
     fetchMovieDetail();
-  }, [id]);
+  }, [bookedSeats]);
 
   const handlePurchaseTicket = async () => {
     try {
       if (selectedSeats.length === 0) {
-        console.log(
-          "No seats selected. Please choose seats before purchasing."
-        );
+        errorToast("No Seats Selected");
         return;
       }
       const response = await fetch(
@@ -59,11 +75,14 @@ const MovieIndex = () => {
       if (!response.ok) {
         throw new Error("Error purchasing tickets");
       }
-
       const responseData = await response.json();
-      console.log("Purchase successful:", responseData);
+      // const stringifiedResponseData = JSON.stringify(responseData);
+      // console.log(responseData);
+      successToast(responseData.message);
+      setSelectedSeats([]);
+      // console.log("Purchase successful:", responseData);
     } catch (err) {
-      console.log(err);
+      successToast(responseData.message);
     }
   };
 
@@ -73,6 +92,7 @@ const MovieIndex = () => {
 
   return (
     <div className="container">
+      <ToastContainer />
       <Slide details={movieDetail}></Slide>
       <div className="p-2 flex flex-col md:flex-row mt-5">
         <div className="md:w-1/4 w-full p-4 ">

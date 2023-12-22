@@ -5,8 +5,6 @@ import { useSeatContext } from "../../context/SeatContext";
 const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
 const SeatMatrix = () => {
-  const { selectedSeats } = useSeatContext();
-
   const renderSeats = (seatNumbers) => {
     return (
       <div className="flex flex-row justify-around">
@@ -38,9 +36,6 @@ const SeatMatrix = () => {
       <CurvedScreen />
       <div className="flex flex-col gap-y-5 flex-wrap items-center my-8">
         {renderRows()}
-      </div>
-      <div className="text-white">
-        Selected Seats: {selectedSeats.join(", ")}
       </div>
     </div>
   );

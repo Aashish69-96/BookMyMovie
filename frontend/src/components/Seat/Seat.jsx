@@ -9,7 +9,6 @@ const Seat = ({ seatno }) => {
   const { bookedSeats } = useBookedSeatContext();
   const isSeatSelected = selectedSeats.includes(seatno);
   const isSeatBookedSelected = bookedSeats.includes(seatno);
-  console.log(bookedSeats);
 
   const handleOnClick = () => {
     if (!isSeatBookedSelected) {
