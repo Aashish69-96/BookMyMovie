@@ -7,6 +7,7 @@ import SignUp from "./Page/SignUp";
 import MovieIndex from "./Page/MovieIndex";
 import { SeatContextProvider } from "./context/SeatContext";
 import { BookedSeatContexProvider } from "./context/BookedSeatContext";
+import MovieList from "./Page/MovieList";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/SignUp",
         element: <SignUp />,
+      },
+      {
+        path: "/Movielist",
+        element: <MovieList />,
       },
       {
         path: "/Movie/:id",

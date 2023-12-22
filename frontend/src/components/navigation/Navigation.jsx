@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import LOGO from "../../assets/Logo.png";
 import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
 const Navigation = () => {
   const { auth, isLoading, error } = useAuth();
   const [authStatus, setAuthStatus] = useState(false);
@@ -28,13 +29,16 @@ const Navigation = () => {
           <div class="flex shrink-0">
             <a aria-current="page" class="flex items-center" href="/">
               <img class="h-8 w-auto" src={LOGO} alt="BookMyMovieLogo"></img>
-              <p class="sr-only">Website Title</p>
+              <p class="sr-only"></p>
             </a>
           </div>
           <div class="hidden md:flex md:items-center md:justify-center md:gap-5">
-            <a class="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
+            <Link
+              to={"/Movielist"}
+              class="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
+            >
               Movies
-            </a>
+            </Link>
             <a class="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
               Theatres
             </a>
