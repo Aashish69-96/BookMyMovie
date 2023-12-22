@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,6 +38,7 @@ const Login = () => {
       if (response.ok) {
         successToast(responseData.msg);
         localStorage.setItem("user-token", JSON.stringify(responseData.data));
+        // useAuth();
         navigate("/");
       } else {
         errorToast(response.msg);
