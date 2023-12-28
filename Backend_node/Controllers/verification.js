@@ -7,8 +7,8 @@ const email = require("./customer.auth.controller");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "saksamgyawali12@gmail.com", // user email
-    pass: "eomy ofmg kgqw bpnn", // take passwrod from app password in two step verfifcation in gmail.
+    user: "<student12@gmail.com>", // user email
+    pass: "<App Password>", // take passwrod from app password in two step verfifcation in gmail.
   },
 });
 
