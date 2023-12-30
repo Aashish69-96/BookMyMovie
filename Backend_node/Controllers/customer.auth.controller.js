@@ -2,6 +2,7 @@ const Customer = require("../Models/customers.model");
 const Hash = require("../Utilities/hashing.utility");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const {sendemailonlogin}=require("./verification");
 
 const createCustomer = async (req, res) => {
   try {
@@ -48,6 +49,10 @@ const loginCustomer = async (req, res) => {
         const tokenPayload = {
           id: existingCustomer._id,
         };
+        const useremail=existingCustomer.email;
+        
+        await sendemailonlogin(useremail,res);
+        
         const accessToken = jwt.sign(tokenPayload, process.env.JWT_SECRET);
         res.status(201).json({
           status: "success",
@@ -77,4 +82,4 @@ const authCustomer = async (req, res) => {
   return res.json({ status: true });
 };
 
-module.exports = { createCustomer, loginCustomer,authCustomer };
+module.exports = { createCustomer, loginCustomer,authCustomer, };
