@@ -7,6 +7,15 @@ import PrimaryButton from "../Button/PrimaryButton";
 import SecondaryButton from "../Button/SecondaryButton";
 
 const Slide = ({ details }) => {
+
+  function filterTime(date) {
+
+    const yourDate = new Date(date);
+    const formattedDate = yourDate.toLocaleDateString();
+    return formattedDate;
+  }
+
+
   return (
     <div className="MovieSlider relative ">
       <img
@@ -28,7 +37,7 @@ const Slide = ({ details }) => {
             </p>
             <p className="SlideDesPrimary">
               <BsCalendarWeekFill></BsCalendarWeekFill>{" "}
-              <span className=" text-theme-light-white">{details.date}</span>
+              <span className=" text-theme-light-white">{filterTime(details.date)}</span>
             </p>
           </div>
           <div className="flex flex-row gap-5">
