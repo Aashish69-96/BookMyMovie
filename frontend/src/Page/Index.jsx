@@ -7,7 +7,7 @@ import { MovieContext } from "../context/MovieListContext";
 
 const Index = () => {
   const { movieList } = useContext(MovieContext);
-  console.log(movieList);
+  // console.log(movieList);
 
   return (
     <React.Fragment>

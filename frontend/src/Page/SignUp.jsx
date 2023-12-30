@@ -1,4 +1,48 @@
+import { useState } from "react";
+import successToast from "../components/Toast/successToast";
+import errorToast from "../components/Toast/successToast";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    username: "",
+    displayname: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    // console.log(formData);
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/customers/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const responseData = await response.json();
+      if (response.ok) {
+        successToast(responseData.msg);
+        // localStorage.setItem("user-token", JSON.stringify(responseData.data));
+        navigate("/login");
+      } else {
+        errorToast(response.msg);
+      }
+    } catch (err) {
+      console.log("Hello world");
+    }
+  };
+
   return (
     <section>
       <div className="flex flex-col items-center px-6 py-8 lg:my-10 my-5 mx-auto lg:py-0 ">
@@ -11,7 +55,7 @@ const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-white">
               Don't have an account? Sign Up✨
             </h1>
-            <form className="space-y-4 md:space-y-6">
+            <form className="space-y-4 md:space-y-6" onChange={handleChange}>
               <div>
                 <label
                   for="email"
@@ -20,11 +64,27 @@ const Login = () => {
                   Display Name
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
+                  type="displayname"
+                  name="displayname"
+                  id="displayname"
                   className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-100  focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
+                  required={true}
+                ></input>
+              </div>
+              <div>
+                <label
+                  for="email"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Username
+                </label>
+                <input
+                  type="username"
+                  name="username"
+                  id="username"
+                  className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-100  focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="username"
                   required={true}
                 ></input>
               </div>
@@ -89,8 +149,9 @@ const Login = () => {
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                onClick={handleSubmit}
               >
-                Sign in
+                Sign up
               </button>
               <p className="text-sm font-light text-gray-400 ">
                 {" "}
