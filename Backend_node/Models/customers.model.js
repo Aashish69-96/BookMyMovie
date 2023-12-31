@@ -24,6 +24,16 @@ const customerSchema = new Schema({
     default : false,
     required: true,
   },
+  limit:  { 
+    type:Number,
+    default:3,
+    required:true,
+  },
+  limitedate:{
+    type:Number,
+    default:0,
+    required:true,
+  },
 });
 const Customer = mongoose.model("Customer", customerSchema);
 module.exports = Customer;

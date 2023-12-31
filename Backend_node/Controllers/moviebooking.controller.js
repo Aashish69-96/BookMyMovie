@@ -1,6 +1,7 @@
 const MovieBooking = require("../Models/moviebooking.model");
 const MovieHall = require("../Models/moviehall.model");
 const Movie = require("../Models/movies.model");
+const User = require("../Models/customers.model");
 const getUpCommingMovie = async (req, res) => {
   try {
     const currentDate = new Date();
@@ -133,6 +134,9 @@ const purchaseMovie = async (req, res) => {
   try {
     console.log("hello");
     const userId = req.user.id;
+    const existingUser = await User.findById(userId);
+    const now = new Date();
+    const date = now.getDate();
     const movieBookingId = req.params.id;
     const { selectedSeats } = req.body;
     console.log(req.body, movieBookingId, userId);
@@ -150,15 +154,29 @@ const purchaseMovie = async (req, res) => {
         .status(400)
         .json({ message: "Selected seats are not available" });
     }
+
+    const limit = existingUser.limit;
+    if(limit<=0){
+    const difference=(date-existingUser.limitedate)**2;
+      if(difference>=1){
+          existingUser.limit = 3;
+          await existingUser.save();
+      }
+      return res.status(429).json({error:"Limit for 24 hrs have been reached"});
+    } 
     const movieBooking = await MovieBooking.findById(movieBookingId);
     movieBooking.seats = [
       ...movieBooking.seats,
       ...selectedSeats.map((seat) => ({ seat, bookedBy: userId })),
     ];
     await movieBooking.save();
-    //success response
+    //success responseawait
+    existingUser.limit = -1; 
+    existingUser.limitedate = date;
+    await existingUser.save();
     res.status(200).json({ message: "Purchase successful" });
-  } catch (err) {
+  }
+      catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error" });
   }
