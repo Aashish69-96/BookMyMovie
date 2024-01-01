@@ -9,13 +9,18 @@ const app = express();
 
 //cors setup
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: [
+    "*",
+    "http://localhost:5173/SignUp",
+    "http://localhost:5173/Login",
+    "http://localhost:5173",
+  ],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // specify the allowed HTTP methods
+  allowedHeaders: "Content-Type,Authorization", // specify the allowed headers
+  credentials: true, // enable credentials (cookies, authorization headers, etc.)
+};
+app.use(cors(corsOptions));
 //routes
 //customer routes
 const customerRoutes = require("./Routers/customer.router");

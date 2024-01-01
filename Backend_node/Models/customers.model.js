@@ -21,18 +21,27 @@ const customerSchema = new Schema({
   },
   premium: {
     type: Boolean,
-    default : false,
+    default: false,
     required: true,
   },
-  limit:  { 
-    type:Number,
-    default:3,
-    required:true,
+  limit: {
+    type: Number,
+    default: 3,
+    required: true,
   },
-  limitedate:{
-    type:Number,
-    default:0,
-    required:true,
+  limitedate: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  verificationToken: {
+    type: String,
+    required: true,
   },
 });
 const Customer = mongoose.model("Customer", customerSchema);
