@@ -8,6 +8,7 @@ import MovieIndex from "./Page/MovieIndex";
 import { SeatContextProvider } from "./context/SeatContext";
 import { BookedSeatContexProvider } from "./context/BookedSeatContext";
 import MovieList from "./Page/MovieList";
+import HallList from "./Page/HallList";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/Movielist",
         element: <MovieList />,
+      },
+      {
+        path: "/HallList",
+        element: <HallList />,
       },
       {
         path: "/Movie/:id",

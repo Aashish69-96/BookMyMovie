@@ -50,9 +50,9 @@ const Navigation = () => {
             >
               Movies
             </Link>
-            <a className="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer">
+            <Link to={"/HallList"} className="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" >
               Theatres
-            </a>
+            </Link>
           </div>
           <div className="flex items-center justify-end gap-3">
             {!authStatus ? (

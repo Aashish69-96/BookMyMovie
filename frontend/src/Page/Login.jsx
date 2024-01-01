@@ -2,10 +2,7 @@ import { useState } from "react";
 import successToast from "../components/Toast/successToast";
 import errorToast from "../components/Toast/successToast";
 import { useNavigate } from "react-router-dom";
-
-import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const navigate = useNavigate();
