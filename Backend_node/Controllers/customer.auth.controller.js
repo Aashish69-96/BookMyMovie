@@ -36,9 +36,11 @@ const createCustomer = async (req, res) => {
 const loginCustomer = async (req, res) => {
   try {
     let { email, password, username } = req.body;
+    // console.log(email);
     const existingCustomer = await Customer.findOne({
       $or: [{ email }, { username }],
     });
+    // console.log(existingCustomer);
     const customerData = {
       id: existingCustomer._id,
       username: existingCustomer.username,
@@ -47,15 +49,12 @@ const loginCustomer = async (req, res) => {
       displayname: existingCustomer.displayname,
     };
     if (existingCustomer) {
-      // console.log("__----___");
+      console.log("__----___");
       if (await Hash.comparePasswords(password, existingCustomer.password)) {
         const tokenPayload = {
           id: existingCustomer._id,
         };
-        const useremail = existingCustomer.email;
-
         // await sendemailonlogin(useremail, res);
-
         const accessToken = jwt.sign(tokenPayload, process.env.JWT_SECRET);
         res.status(201).json({
           status: "success",

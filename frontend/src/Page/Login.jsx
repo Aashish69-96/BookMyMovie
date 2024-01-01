@@ -1,6 +1,6 @@
 import { useState } from "react";
 import successToast from "../components/Toast/successToast";
-import errorToast from "../components/Toast/successToast";
+import errorToast from "../components/Toast/errorToast";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -31,18 +31,20 @@ const Login = () => {
         }
       );
       const responseData = await response.json();
-      console.log(responseData);
+      // console.log(responseData);
       if (response.ok) {
         successToast(responseData.msg);
         localStorage.setItem("user-token", JSON.stringify(responseData.data));
         // useAuth();
         navigate("/");
       } else {
-        errorToast(response.msg);
+        console.log(response)
+        errorToast("Invalid Username/Password");
       }
     } catch (err) {
+      console.log("Hello");
+      successToast("error");
       console.log(err);
-      errorToast(err.message);
     }
   };
 

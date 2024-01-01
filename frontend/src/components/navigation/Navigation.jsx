@@ -2,32 +2,40 @@ import { useEffect, useState } from "react";
 import LOGO from "../../assets/Logo.png";
 import useAuth from "../../hooks/useAuth";
 import { IoIosExit } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Navigation = () => {
   const { auth, isLoading, error } = useAuth();
   const [authStatus, setAuthStatus] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("user-token");
+    navigate("/Login");
     setAuthStatus(false);
   };
   useEffect(() => {
-    const tokenObject = JSON.parse(localStorage.getItem("user-token"));
-    async function authenticate() {
-      if (tokenObject && tokenObject.token) {
-        const user = await auth(tokenObject.token);
-        if (user) {
-          setAuthStatus(true);
+    const tokenObjectString = localStorage.getItem("user-token");
+    if (tokenObjectString) {
+      try {
+        const tokenObject = JSON.parse(tokenObjectString);
+        if (tokenObject && tokenObject.token) {
+          const authenticate = async () => {
+            const user = await auth(tokenObject.token);
+            setAuthStatus(user !== null);
+          };
+          authenticate();
         } else {
           setAuthStatus(false);
         }
-      } else {
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
         setAuthStatus(false);
       }
+    } else {
+      setAuthStatus(false);
     }
-    authenticate();
-  });
+  }, [auth]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-30 mx-auto w-full max-w-screen-md border border-theme-light-dark-2 bg-theme-light-dark py-3 shadow backdrop-blur-lg md:top-6 md:rounded-3xl lg:max-w-screen-xl">
@@ -77,7 +85,9 @@ const Navigation = () => {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 {"@ " +
-                  JSON.parse(localStorage.getItem("user-token"))["username"]}
+                  (localStorage.getItem("user-token")
+                    ? JSON.parse(localStorage.getItem("user-token"))["username"]
+                    : "Logging Out")}
               </button>
             )}
 
