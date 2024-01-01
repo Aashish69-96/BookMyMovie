@@ -1,4 +1,4 @@
-const MovieBooking = require("../Models/moviebooking.model");
+  const MovieBooking = require("../Models/moviebooking.model");
 const MovieHall = require("../Models/moviehall.model");
 const Movie = require("../Models/movies.model");
 const User = require("../Models/customers.model");

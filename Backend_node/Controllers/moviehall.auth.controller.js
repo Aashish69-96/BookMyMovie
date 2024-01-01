@@ -26,4 +26,21 @@ const createMovieHall = async (req, res) => {
   }
 };
 
-module.exports = { createMovieHall };
+const getAllMovie = async (req, res) => {
+
+  try {
+    const getExisitingHall = await MovieHall.find();
+    if (getExisitingHall) {
+      return res.status(201).json({ data: getExisitingHall });
+    }
+    else {
+      throw Error("No data available");
+    }
+  }
+  catch (err) {
+    return res.status(400).json({ error: err.message });
+  }
+
+}
+
+module.exports = { createMovieHall, getAllMovie };
