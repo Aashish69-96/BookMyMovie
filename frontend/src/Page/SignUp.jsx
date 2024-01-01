@@ -1,7 +1,8 @@
 import { useState } from "react";
 import successToast from "../components/Toast/successToast";
-import errorToast from "../components/Toast/successToast";
+import errorToast from "../components/Toast/errorToast";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,20 +32,22 @@ const Login = () => {
         }
       );
       const responseData = await response.json();
+      console.log(responseData);
       if (response.ok) {
         successToast(responseData.msg);
-        // localStorage.setItem("user-token", JSON.stringify(responseData.data));
-        navigate("/login");
+        errorToast(responseData.sup);
+        // navigate("/login");
       } else {
-        errorToast(response.msg);
+        errorToast(responseData["error"]);
       }
     } catch (err) {
-      console.log("Hello world");
+      errorToast(err.messsage);
     }
   };
 
   return (
     <section>
+      <ToastContainer></ToastContainer>
       <div className="flex flex-col items-center px-6 py-8 lg:my-10 my-5 mx-auto lg:py-0 ">
         <a
           href="#"
@@ -58,7 +61,7 @@ const Login = () => {
             <form className="space-y-4 md:space-y-6" onChange={handleChange}>
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-white"
                 >
                   Display Name
@@ -74,7 +77,7 @@ const Login = () => {
               </div>
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-white"
                 >
                   Username
@@ -90,7 +93,7 @@ const Login = () => {
               </div>
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-white"
                 >
                   Your email
@@ -106,7 +109,7 @@ const Login = () => {
               </div>
               <div>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-white"
                 >
                   Password
@@ -132,7 +135,7 @@ const Login = () => {
                   </div>
                   <div className="ml-3 text-sm">
                     <label
-                      for="remember"
+                      htmlFor="remember"
                       className="text-gray-500 dark:text-gray-300"
                     >
                       Remember me

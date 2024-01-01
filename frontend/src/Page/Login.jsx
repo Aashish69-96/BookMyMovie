@@ -36,15 +36,17 @@ const Login = () => {
         successToast(responseData.msg);
         localStorage.setItem("user-token", JSON.stringify(responseData.data));
         // useAuth();
+        console.log(responseData.msg);
         navigate("/");
       } else {
-        console.log(response)
-        errorToast("Invalid Username/Password");
+        // console.log(response);
+        // console.log(responseData.msg);
+        // errorToast("Invalid Username/Password");
+        errorToast(responseData.msg);
       }
     } catch (err) {
-      console.log("Hello");
-      successToast("error");
       console.log(err);
+      errorToast(err.msg);
     }
   };
 
