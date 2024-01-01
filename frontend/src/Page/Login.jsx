@@ -1,7 +1,7 @@
 import { useState } from "react";
 import successToast from "../components/Toast/successToast";
 import errorToast from "../components/Toast/successToast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 const Login = () => {
@@ -71,7 +71,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-black focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-500 text-black focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
                   required={true}
                   onChange={handleChange}
@@ -89,7 +89,7 @@ const Login = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-black focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-500 text-black focus:ring-blue-500 focus:border-blue-500"
                   required={true}
                   onChange={handleChange}
                 ></input>
@@ -128,12 +128,12 @@ const Login = () => {
               </button>
               <p className="text-sm font-light text-gray-400">
                 Don’t have an account yet?{" "}
-                <a
+                <Link
+                  to={"/SignUp"}
                   className="font-medium  hover:underline text-primary-500"
-                  href="/SignUp"
                 >
                   Sign Up
-                </a>
+                </Link>
               </p>
             </form>
           </div>

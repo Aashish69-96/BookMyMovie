@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Login = () => {
   return (
     <section>
@@ -67,11 +69,12 @@ const Login = () => {
                 Sign Up
               </button>
               <p className="text-sm font-light text-gray-400">
-        
-                <a className="font-medium  hover:underline text-primary-500" href="/login">
-                
+                <Link
+                  to={"/login"}
+                  className="font-medium  hover:underline text-primary-500"
+                >
                   Login
-                </a>
+                </Link>
               </p>
             </form>
           </div>

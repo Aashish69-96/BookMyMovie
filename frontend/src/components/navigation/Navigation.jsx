@@ -34,14 +34,19 @@ const Navigation = () => {
       <div className="px-4">
         <div className="flex items-center justify-between">
           <div className="flex shrink-0">
-            <a aria-current="page" className="flex items-center" href="/">
+            <Link
+              to={"/"}
+              aria-current="page"
+              className="flex items-center"
+              href="/"
+            >
               <img
                 className="h-8 w-auto"
                 src={LOGO}
                 alt="BookMyMovieLogo"
               ></img>
               <p className="sr-only"></p>
-            </a>
+            </Link>
           </div>
           <div className="hidden md:flex md:items-center md:justify-center md:gap-5">
             <Link
@@ -50,18 +55,21 @@ const Navigation = () => {
             >
               Movies
             </Link>
-            <Link to={"/HallList"} className="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" >
+            <Link
+              to={"/HallList"}
+              className="inline-block rounded-lg px-2 py-1 text-sm font-medium text-theme-light-white transition-all duration-200 hover:bg-gray-100 hover:text-gray-900 cursor-pointer"
+            >
               Theatres
             </Link>
           </div>
           <div className="flex items-center justify-end gap-3">
             {!authStatus ? (
-              <a
+              <Link
+                to={"/login"}
                 className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-theme-light-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-                href={"/login"}
               >
                 Login
-              </a>
+              </Link>
             ) : (
               <button
                 type="button"

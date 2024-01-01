@@ -1,7 +1,7 @@
 import { useState } from "react";
 import successToast from "../components/Toast/successToast";
 import errorToast from "../components/Toast/successToast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const Login = () => {
                   type="displayname"
                   name="displayname"
                   id="displayname"
-                  className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-100  focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-500  focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
                   required={true}
                 ></input>
@@ -83,7 +83,7 @@ const Login = () => {
                   type="username"
                   name="username"
                   id="username"
-                  className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-100  focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card sm:text-sm text-theme-dark rounded-lg block w-full p-2.5 placeholder-gray-500  focus:ring-blue-500 focus:border-blue-500"
                   placeholder="username"
                   required={true}
                 ></input>
@@ -99,7 +99,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-theme-dark  focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-500 text-theme-dark  focus:ring-blue-500 focus:border-blue-500"
                   placeholder="name@company.com"
                   required={true}
                 ></input>
@@ -116,7 +116,7 @@ const Login = () => {
                   name="password"
                   id="password"
                   placeholder="••••••••"
-                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-100 text-theme-dark  focus:ring-blue-500 focus:border-blue-500"
+                  className="sec-card  sm:text-sm rounded-lg block w-full p-2.5 placeholder-gray-500 text-theme-dark  focus:ring-blue-500 focus:border-blue-500"
                   required={true}
                 ></input>
               </div>
@@ -156,9 +156,12 @@ const Login = () => {
               <p className="text-sm font-light text-gray-400 ">
                 {" "}
                 Already have an account?
-                <a className="font-medium px-2 hover:underline text-primary-500">
+                <Link
+                  to={"/Login"}
+                  className="font-medium px-2 hover:underline text-primary-500 cursor-pointer"
+                >
                   Sign in
-                </a>
+                </Link>
               </p>
             </form>
           </div>
